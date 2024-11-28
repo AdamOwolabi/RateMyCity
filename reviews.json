@@ -1,0 +1,245 @@
+{
+    "reviews": [
+      {
+        "state": "California",
+        "city": "Los Angeles",
+        "stars": 5,
+        "review": "A vibrant city with endless entertainment and fantastic weather!"
+      },
+      {
+        "state": "New York",
+        "city": "New York City",
+        "stars": 4,
+        "review": "Great for nightlife and culture, but traffic is a nightmare."
+      },
+      {
+        "state": "Texas",
+        "city": "Austin",
+        "stars": 5,
+        "review": "A fun, music-filled city with amazing food and welcoming people."
+      },
+      {
+        "state": "Illinois",
+        "city": "Chicago",
+        "stars": 4,
+        "review": "Beautiful architecture and deep-dish pizza, but winters are harsh."
+      },
+      {
+        "state": "Florida",
+        "city": "Miami",
+        "stars": 3,
+        "review": "Lovely beaches, but it's too hot and humid most of the year."
+      },
+      {
+        "state": "Nevada",
+        "city": "Las Vegas",
+        "stars": 4,
+        "review": "Perfect for a quick getaway, though it can get overwhelming."
+      },
+      {
+        "state": "Colorado",
+        "city": "Denver",
+        "stars": 5,
+        "review": "Great for outdoor enthusiasts, with stunning views and friendly locals."
+      },
+      {
+        "state": "Washington",
+        "city": "Seattle",
+        "stars": 4,
+        "review": "Lovely coffee culture and greenery, but it's often rainy."
+      },
+      {
+        "state": "Arizona",
+        "city": "Phoenix",
+        "stars": 3,
+        "review": "A sprawling desert city, but not much to do unless you love the heat."
+      },
+      {
+        "state": "Massachusetts",
+        "city": "Boston",
+        "stars": 5,
+        "review": "Rich in history and amazing seafood, with a charming atmosphere."
+      },
+      {
+        "state": "Georgia",
+        "city": "Atlanta",
+        "stars": 4,
+        "review": "A bustling city with great food and Southern charm."
+      },
+      {
+        "state": "Oregon",
+        "city": "Portland",
+        "stars": 5,
+        "review": "Quirky and eco-friendly with fantastic food and beer options."
+      },
+      {
+        "state": "Hawaii",
+        "city": "Honolulu",
+        "stars": 5,
+        "review": "Paradise on Earth with amazing beaches and laid-back vibes."
+      },
+      {
+        "state": "Michigan",
+        "city": "Detroit",
+        "stars": 3,
+        "review": "Lots of history, but the city is still rebuilding in many areas."
+      },
+      {
+        "state": "Pennsylvania",
+        "city": "Philadelphia",
+        "stars": 4,
+        "review": "A historic city with iconic landmarks and a rich food culture."
+      },
+      {
+        "state": "Tennessee",
+        "city": "Nashville",
+        "stars": 5,
+        "review": "A must-visit for music lovers with a lively and welcoming atmosphere."
+      },
+      {
+        "state": "Louisiana",
+        "city": "New Orleans",
+        "stars": 5,
+        "review": "Unique culture, incredible food, and a party vibe like no other!"
+      },
+      {
+        "state": "Alaska",
+        "city": "Anchorage",
+        "stars": 4,
+        "review": "Breathtaking nature and wildlife, but very cold in the winter."
+      },
+      {
+        "state": "Utah",
+        "city": "Salt Lake City",
+        "stars": 4,
+        "review": "Surrounded by stunning mountains, great for winter sports."
+      },
+      {
+        "state": "North Carolina",
+        "city": "Charlotte",
+        "stars": 3,
+        "review": "A growing city with a nice balance of urban and suburban areas."
+      },
+      {
+        "state": "Alabama",
+        "city": "Birmingham",
+        "stars": 3,
+        "review": "Rich in history, but still developing its downtown area."
+      },
+      {
+        "state": "South Carolina",
+        "city": "Charleston",
+        "stars": 5,
+        "review": "Charming city with beautiful architecture and southern hospitality."
+      },
+      {
+        "state": "Virginia",
+        "city": "Richmond",
+        "stars": 4,
+        "review": "A blend of history and modern vibes, with great restaurants."
+      },
+      {
+        "state": "Ohio",
+        "city": "Cleveland",
+        "stars": 3,
+        "review": "Lots of potential, but the city has seen better days."
+      },
+      {
+        "state": "Kentucky",
+        "city": "Louisville",
+        "stars": 4,
+        "review": "Famous for bourbon and horse racing, with a fun downtown area."
+      },
+      {
+        "state": "Missouri",
+        "city": "Kansas City",
+        "stars": 5,
+        "review": "Amazing barbecue and a vibrant arts scene!"
+      },
+      {
+        "state": "Minnesota",
+        "city": "Minneapolis",
+        "stars": 4,
+        "review": "Great for outdoor lovers, though winters are extremely cold."
+      },
+      {
+        "state": "Wisconsin",
+        "city": "Milwaukee",
+        "stars": 4,
+        "review": "A friendly city with a rich beer culture and lovely lake views."
+      },
+      {
+        "state": "Indiana",
+        "city": "Indianapolis",
+        "stars": 3,
+        "review": "A clean city with a growing downtown, but still feels small."
+      },
+      {
+        "state": "New Mexico",
+        "city": "Santa Fe",
+        "stars": 5,
+        "review": "Stunning art scene and incredible landscapes, perfect for a peaceful getaway."
+      },
+      {
+        "state": "Montana",
+        "city": "Bozeman",
+        "stars": 4,
+        "review": "Outdoor paradise, but it’s starting to get expensive."
+      },
+      {
+        "state": "Idaho",
+        "city": "Boise",
+        "stars": 5,
+        "review": "A hidden gem with a great mix of nature and city life."
+      },
+      {
+        "state": "North Dakota",
+        "city": "Fargo",
+        "stars": 3,
+        "review": "Quiet and friendly, but not much to do for tourists."
+      },
+      {
+        "state": "Wyoming",
+        "city": "Jackson",
+        "stars": 5,
+        "review": "Unbelievable mountain views and a cozy western vibe."
+      },
+      {
+        "state": "Arkansas",
+        "city": "Little Rock",
+        "stars": 3,
+        "review": "Affordable and quiet, but lacks big city amenities."
+      },
+      {
+        "state": "Oklahoma",
+        "city": "Tulsa",
+        "stars": 4,
+        "review": "Surprisingly trendy with great local restaurants."
+      },
+      {
+        "state": "South Dakota",
+        "city": "Sioux Falls",
+        "stars": 4,
+        "review": "Small town charm with beautiful parks and waterfalls."
+      },
+      {
+        "state": "Maine",
+        "city": "Portland",
+        "stars": 5,
+        "review": "A foodie paradise with gorgeous coastal views."
+      },
+      {
+        "state": "Vermont",
+        "city": "Burlington",
+        "stars": 4,
+        "review": "A charming town with a great outdoor lifestyle."
+      },
+      {
+        "state": "Rhode Island",
+        "city": "Providence",
+        "stars": 4,
+        "review": "Small city with a strong arts and culinary scene."
+      }
+    ]
+  }
+  
