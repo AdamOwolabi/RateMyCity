@@ -1,0 +1,11 @@
+anaconda-anon-usage==0.4.4
+backports.tarfile==1.2.0
+brotli==1.0.9
+conda-content-trust==0.2.0
+importlib-metadata==8.0.0
+importlib-resources==6.4.0
+jaraco.collections==5.1.0
+pip-chill==1.0.3
+pysocks==1.7.1
+ruamel.yaml==0.18.6
+tomli==2.0.1
