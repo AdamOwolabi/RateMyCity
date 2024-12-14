@@ -115,7 +115,7 @@ const systemPrompt =
         stream=True
         )
 
-        const stream = ReadableStream({
+        const stream = new ReadableStream({
             async start(controller){
                 const encoder = new TextDecoder()
                 try{
