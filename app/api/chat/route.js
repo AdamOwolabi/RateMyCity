@@ -64,14 +64,15 @@ const systemPrompt =
             })
 
         const index = pc.index('rag').namespace('ns1')
-        const genai = new GoogleGenerativeAI()
+        const genai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
-        const text = data[data.datalength - 1].content
-        const embedding = await genai.embed_content(
-                                                model="models/text-embedding-004",
-                                                content=text,
-                                            )
+        const text = data[data.length - 1].content
+        const embeddingResponse = await genai.embedContent({
+            model: "models/text-embedding-004",
+            content: text,
+        });
 
+        const embedding = embeddingResponse.embedding.values;
         //query pinecone for similar cities to make embedd
         const results = await index.query({
             topK: 3,

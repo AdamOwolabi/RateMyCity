@@ -1,21 +1,11 @@
+"use client"
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useState } from 'react';
 import {
-  Container,
-  Typography,
   Box,
   Button,
-  Paper,
   TextField,
-  CardContent,
-  Dialog,
-  Card,
-  CardActionArea,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Grid, 
   Stack
 } from '@mui/material';
 
@@ -24,14 +14,16 @@ export default function Home() {
     const [messages, setMessages] = useState([
       {
         role : "assistant",
-        content:  "Hi, I'm the Rate My City support Assitant. How can I help you." 
+        content:  "Hi, I'm the Rate My City support Assistant. How can I help you." 
       }
     ])
 
     const [message, setMessage] = useState('')
+
       const sendMessage = async () =>{
-        setMessages((messages) =>[
-        {role: "user", content: messages},
+        setMessages((prevMessages) =>[
+        ...prevMessages,
+        {role: "user", content: message},
         {role: "assistant", content:''}
       ])
 
@@ -53,11 +45,11 @@ export default function Home() {
             return result
           }
           const text = decoder.decode(value || new Uint8Array(), {stream: true})
-              setMessages((message) => {
+              setMessages((prevMessages) => {
               //database operation. makes it so you var begave as expeected 
 
-              let lastMessage = message[message.length - 1]
-              let otherMessages = message.slice(0, message.length - 1)
+              let lastMessage = prevMessages[prevMessages.length - 1]
+              let otherMessages = prevMessages.slice(0, prevMessages.length - 1)
 
               return [
                 ...otherMessages,
@@ -68,13 +60,14 @@ export default function Home() {
       })
     })
   }
-    return ( <Box 
-    width="100vw" 
-    height = "100vh" 
-    display="flex" 
-    flexDirection="column" 
-    justifyContent="center"
-    alignItems="center">
+    return ( 
+    <Box 
+      width="100vw" 
+      height = "100vh" 
+      display="flex" 
+      flexDirection="column" 
+      justifyContent="center"
+      alignItems="center">
 
       <Stack direction="column"
         width= "500px" 
@@ -105,13 +98,13 @@ export default function Home() {
           ))}
         </Stack>
 
-        <Stack direction = "row" spacing={2}>                                                                                                                                                                                                                                
-          <TextField
-            label = "Message"
-            fullWidth
-            value={message}                                                                                                                                                            ={message}
-            onChange={(e)=>{setMessage(e.target.value)}}
-            />
+        <Stack direction={'row'} spacing={2}>
+        <TextField
+          label="Message"
+          fullWidth
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
           <Button
             variant='contained'
             onClick={sendMessage}>
