@@ -9,6 +9,8 @@ import {
   Stack
 } from '@mui/material';
 
+//page that displays the whole chatbot
+
 export default function Home() {
   
     const [messages, setMessages] = useState([
@@ -40,13 +42,13 @@ export default function Home() {
         const decoder = new TextDecoder()
 
         let result  = ''
-        return reader.read().then(function processText({done, value}){
+        return reader.read().then(function processText({done, value}){   //dereference the object
           if(done){
-            return result
+            return result    //recursive function 
           }
           const text = decoder.decode(value || new Uint8Array(), {stream: true})
               setMessages((prevMessages) => {
-              //database operation. makes it so you var begave as expeected 
+              //database operation. makes it so you var behave as expeected 
 
               let lastMessage = prevMessages[prevMessages.length - 1]
               let otherMessages = prevMessages.slice(0, prevMessages.length - 1)

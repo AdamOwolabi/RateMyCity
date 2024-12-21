@@ -56,23 +56,36 @@ const systemPrompt =
     export async function POST(req){
 
         //make embedding
-
         const data = await req.json()
+
         const pc = new Pinecone(
             {
                 apiKey : process.env.PINECONE_API_KEY,
             })
 
+            // const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+            // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+            // const model = genAI.getGenerativeModel({ model: "text-embedding-004"});
+            
+            // async function run() {
+            //     const result = await model.embedContent("What is the meaning of life?");
+            //     console.log(result.embedding.values);
+            // }
+            
+            // run();
+
         const index = pc.index('rag').namespace('ns1')
-        const genai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+        const genai = new GoogleGenerativeAI(process.env.GEMINIAI_API_KEY)
+        const model = genai.getGenerativeModel({ model: "text-embedding-004"});
+            
 
         const text = data[data.length - 1].content
-        const embeddingResponse = await genai.embedContent({
-            model: "models/text-embedding-004",
-            content: text,
-        });
+        const embeddingResponse = await model.embedContent(text)
 
         const embedding = embeddingResponse.embedding.values;
+
+
         //query pinecone for similar cities to make embedd
         const results = await index.query({
             topK: 3,
@@ -94,48 +107,134 @@ const systemPrompt =
             `
         })
 
-
         const lastMessage = data[data.length - 1]
         const lastMessageContent = lastMessage.content + resultString
         const lastDataWithoutLastMessage = data.slice(0, data.length - 1)
 
        
         //generate data with embedding
-        client = OpenAI(
-            api_key="GEMINI_API_KEY",
-            base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+        const client = new  GoogleGenerativeAI({
+             api_key: process.env.GEMINIAI_API_KEY,
+            base_url: "https://generativelanguage.googleapis.com/v1beta/openai/"
+            }  
         )
 
-        response = client.chat.completions.create(
-        model="gemini-1.5-flash",
-        messages=[
-            {role: 'system', content:systemPrompt},
-            ...lastDataWithoutLastMessage,
-            {role: 'user', content: lastMessageContent}
-        ],
-        stream=True
-        )
 
-        const stream = new ReadableStream({
-            async start(controller){
-                const encoder = new TextDecoder()
-                try{
-                    for await (const chunk of completion){
-                        const content = chunk.choices[0]?.delta?.content
-                        if(content){
-                            const text = ecndoer.encode(content)
-                            controller.enqueue(text)
+        // Initialize the model (Gemini)
+        const model1 = genai.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        async function generateChatCompletion(systemPrompt, lastDataWithoutLastMessage, lastMessageContent) {
+            try {
+                const chat = model1.startChat({
+                    history: [
+                        { role: "user", parts: [{ text: lastMessageContent }] },
+                        ...lastDataWithoutLastMessage,
+                        { role: "system", parts: [{ text: systemPrompt }] },
+                    ],
+                });
+    
+                const result = await chat.sendMessage(lastMessageContent, { stream: true });
+    
+                console.log(result.response.text());
+    
+                const stream = new ReadableStream({
+                    async start(controller) {
+                        const encoder = new TextEncoder();
+                        try {
+                            for await (const chunk of result) {
+                                const content = chunk.choices[0]?.delta?.content;
+                                if (content) {
+                                    const text = encoder.encode(content);
+                                    controller.enqueue(text);
+                                }
+                            }
+                        } catch (err) {
+                            controller.error(err);
+                        } finally {
+                            controller.close();
                         }
-                    }
-                }catch(err){
-                    controller.error(err)
-                }finally{
-                    controller.close()
-                }
-            },
-        })
+                    },
+                });
+    
+                return new NextResponse(stream);
+            } catch (error) {
+                console.error("Error generating chat completion:", error);
+                return new NextResponse("An error occurred while generating chat completion.", { status: 500 });
 
-        return new NextResponse(stream)
+            }
+        }
+    
+        await generateChatCompletion(systemPrompt, lastDataWithoutLastMessage, lastMessageContent);
+    }
+       
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // console.log(client)
+        // response = client.chat.completions.create(
+        //     model="gemini-1.5-flash",
+        //     messages=[
+        //         {role: 'system', content:systemPrompt},
+        //         ...lastDataWithoutLastMessage,
+        //         {role: 'user', content: lastMessageContent}
+        //     ],
+        //     stream=True
+        // )
+
+    //create a chat based completion 
+        // const completion = await genai.createChatCompletion({
+        //     messages:[
+        //         {role: 'system', content:systemPrompt},
+        //         ...lastDataWithoutLastMessage,
+        //         {role: 'user', content: lastMessageContent}
+        //     ],
+        //     stream: true,
+        // })
+
+        // const stream = new ReadableStream({
+        //     async start(controller){
+        //         const encoder = new TextDecoder()
+        //         try{
+        //             for await (const chunk of completion){
+        //                 const content = chunk.choices[0]?.delta?.content
+        //                 if(content){
+        //                     const text = ecndoer.encode(content)
+        //                     controller.enqueue(text)
+        //                 }
+        //             }
+        //         }catch(err){
+        //             controller.error(err)
+        //         }finally{
+        //             controller.close()
+        //         }
+        //     },
+        // })
+
+        // return new NextResponse(stream)
+
 
         // const completion = await GoogleGenerativeAI.chat.completions.create({
         //     messages:[
@@ -145,7 +244,7 @@ const systemPrompt =
         //     ],
         //     stream: true,
         // })
-    }
+    // }
 
     // 'id': 'Los Angeles',
     // 'metadata': {'review': 'A vibrant city with endless entertainment and fantastic weather!',
