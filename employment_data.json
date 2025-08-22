@@ -1,0 +1,229 @@
+{
+  "cities": [
+    {
+      "state": "California",
+      "city": "San Francisco",
+      "employment_data": {
+        "unemployment_rate": 2.8,
+        "average_salary": 112000,
+        "job_growth_rate": 8.5,
+        "top_industries": ["Technology", "Finance", "Healthcare", "Tourism"],
+        "entry_level_opportunities": "High",
+        "mid_career_opportunities": "Very High",
+        "senior_level_opportunities": "Very High",
+        "startup_ecosystem": "Excellent",
+        "corporate_presence": "Strong",
+        "remote_work_friendly": "Very High",
+        "cost_of_living_index": 164,
+        "housing_cost_salary_ratio": 0.45
+      },
+      "life_stage_ratings": {
+        "recent_graduate": {
+          "score": 8.5,
+          "pros": ["High entry-level salaries", "Tech opportunities", "Networking"],
+          "cons": ["Very high cost of living", "Competitive market"]
+        },
+        "mid_career": {
+          "score": 9.2,
+          "pros": ["Excellent career growth", "High salaries", "Innovation hub"],
+          "cons": ["Housing costs", "Work-life balance challenges"]
+        },
+        "career_change": {
+          "score": 7.8,
+          "pros": ["Diverse industries", "Startup opportunities", "Skills bootcamps"],
+          "cons": ["Expensive transition period", "Age bias in tech"]
+        },
+        "family_starting": {
+          "score": 6.5,
+          "pros": ["High salaries", "Good schools"],
+          "cons": ["Housing costs", "Childcare costs", "Long commutes"]
+        },
+        "pre_retirement": {
+          "score": 7.0,
+          "pros": ["High compensation", "Stock options", "Healthcare"],
+          "cons": ["High stress", "Cost of living"]
+        }
+      }
+    },
+    {
+      "state": "Texas",
+      "city": "Austin",
+      "employment_data": {
+        "unemployment_rate": 3.1,
+        "average_salary": 75000,
+        "job_growth_rate": 12.3,
+        "top_industries": ["Technology", "Music & Entertainment", "Government", "Healthcare"],
+        "entry_level_opportunities": "High",
+        "mid_career_opportunities": "High",
+        "senior_level_opportunities": "High",
+        "startup_ecosystem": "Very Good",
+        "corporate_presence": "Growing",
+        "remote_work_friendly": "High",
+        "cost_of_living_index": 103,
+        "housing_cost_salary_ratio": 0.28
+      },
+      "life_stage_ratings": {
+        "recent_graduate": {
+          "score": 9.0,
+          "pros": ["Affordable cost of living", "Growing tech scene", "Vibrant culture"],
+          "cons": ["Limited public transport", "Summer heat"]
+        },
+        "mid_career": {
+          "score": 8.8,
+          "pros": ["No state income tax", "Career growth", "Work-life balance"],
+          "cons": ["Increasing competition", "Rising housing costs"]
+        },
+        "career_change": {
+          "score": 8.5,
+          "pros": ["Diverse economy", "Entrepreneurial culture", "Lower risk financially"],
+          "cons": ["Need car", "Limited in some traditional industries"]
+        },
+        "family_starting": {
+          "score": 9.2,
+          "pros": ["Affordable housing", "Good schools", "Family-friendly"],
+          "cons": ["Growing traffic", "Limited walkability"]
+        },
+        "pre_retirement": {
+          "score": 8.0,
+          "pros": ["No state income tax", "Lower cost of living", "Healthcare"],
+          "cons": ["Hot climate", "Less cultural amenities than larger cities"]
+        }
+      }
+    },
+    {
+      "state": "New York",
+      "city": "New York City",
+      "employment_data": {
+        "unemployment_rate": 4.2,
+        "average_salary": 85000,
+        "job_growth_rate": 4.8,
+        "top_industries": ["Finance", "Media", "Technology", "Fashion", "Real Estate"],
+        "entry_level_opportunities": "Very High",
+        "mid_career_opportunities": "Very High",
+        "senior_level_opportunities": "Very High",
+        "startup_ecosystem": "Excellent",
+        "corporate_presence": "Excellent",
+        "remote_work_friendly": "High",
+        "cost_of_living_index": 148,
+        "housing_cost_salary_ratio": 0.42
+      },
+      "life_stage_ratings": {
+        "recent_graduate": {
+          "score": 8.8,
+          "pros": ["Unmatched opportunities", "Networking", "Cultural amenities"],
+          "cons": ["Very high cost of living", "Competitive", "Small living spaces"]
+        },
+        "mid_career": {
+          "score": 9.0,
+          "pros": ["Career advancement", "High salaries", "Industry diversity"],
+          "cons": ["High stress", "Expensive", "Work-life balance"]
+        },
+        "career_change": {
+          "score": 8.2,
+          "pros": ["Industry diversity", "Networking opportunities", "Cultural exposure"],
+          "cons": ["High cost during transition", "Intense competition"]
+        },
+        "family_starting": {
+          "score": 6.8,
+          "pros": ["Good schools (private)", "Cultural opportunities", "Public transport"],
+          "cons": ["Very expensive", "Small spaces", "Stressful environment"]
+        },
+        "pre_retirement": {
+          "score": 7.5,
+          "pros": ["High compensation", "Healthcare access", "Cultural amenities"],
+          "cons": ["Very expensive", "High stress", "Crowded"]
+        }
+      }
+    },
+    {
+      "state": "Colorado",
+      "city": "Denver",
+      "employment_data": {
+        "unemployment_rate": 3.5,
+        "average_salary": 68000,
+        "job_growth_rate": 9.2,
+        "top_industries": ["Aerospace", "Technology", "Energy", "Healthcare", "Cannabis"],
+        "entry_level_opportunities": "Good",
+        "mid_career_opportunities": "High",
+        "senior_level_opportunities": "Good",
+        "startup_ecosystem": "Good",
+        "corporate_presence": "Moderate",
+        "remote_work_friendly": "Very High",
+        "cost_of_living_index": 110,
+        "housing_cost_salary_ratio": 0.32
+      },
+      "life_stage_ratings": {
+        "recent_graduate": {
+          "score": 8.2,
+          "pros": ["Outdoor lifestyle", "Growing job market", "Young population"],
+          "cons": ["Limited entry-level positions", "Seasonal employment"]
+        },
+        "mid_career": {
+          "score": 9.0,
+          "pros": ["Work-life balance", "Career growth", "Quality of life"],
+          "cons": ["Lower salaries than coasts", "Limited in some industries"]
+        },
+        "career_change": {
+          "score": 8.8,
+          "pros": ["Supportive community", "Diverse economy", "Lower pressure"],
+          "cons": ["Smaller market", "Need outdoor lifestyle fit"]
+        },
+        "family_starting": {
+          "score": 9.5,
+          "pros": ["Family-friendly", "Outdoor activities", "Good schools", "Safe"],
+          "cons": ["Rising costs", "Air quality issues"]
+        },
+        "pre_retirement": {
+          "score": 9.2,
+          "pros": ["Outdoor activities", "Healthcare", "Quality of life", "Community"],
+          "cons": ["Altitude adjustment", "Winter weather"]
+        }
+      }
+    },
+    {
+      "state": "Washington",
+      "city": "Seattle",
+      "employment_data": {
+        "unemployment_rate": 3.8,
+        "average_salary": 95000,
+        "job_growth_rate": 7.1,
+        "top_industries": ["Technology", "Aerospace", "Maritime", "Healthcare", "Coffee"],
+        "entry_level_opportunities": "High",
+        "mid_career_opportunities": "Very High",
+        "senior_level_opportunities": "High",
+        "startup_ecosystem": "Very Good",
+        "corporate_presence": "Strong",
+        "remote_work_friendly": "Very High",
+        "cost_of_living_index": 125,
+        "housing_cost_salary_ratio": 0.35
+      },
+      "life_stage_ratings": {
+        "recent_graduate": {
+          "score": 8.0,
+          "pros": ["Tech opportunities", "Coffee culture", "Outdoor access"],
+          "cons": ["Rainy weather", "Competitive tech market", "Rising costs"]
+        },
+        "mid_career": {
+          "score": 8.8,
+          "pros": ["Strong tech scene", "Work-life balance", "No state income tax"],
+          "cons": ["Weather", "Housing costs", "Traffic"]
+        },
+        "career_change": {
+          "score": 7.5,
+          "pros": ["Tech bootcamps", "Diverse economy", "Progressive culture"],
+          "cons": ["Weather adjustment", "Tech focus", "Cost during transition"]
+        },
+        "family_starting": {
+          "score": 8.5,
+          "pros": ["Good schools", "Outdoor activities", "Safe neighborhoods"],
+          "cons": ["Housing costs", "Weather", "Childcare costs"]
+        },
+        "pre_retirement": {
+          "score": 8.2,
+          "pros": ["Healthcare", "Natural beauty", "Cultural amenities"],
+          "cons": ["Weather", "Cost of living", "Less sunshine"]
+        }
+      }
+    }
+  ]
+}

@@ -1,81 +1,105 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { Pinecone } from "@pinecone-database/pinecone";
-import OpenAI from 'openai';
+import { Pinecone } from "@pinecone-database/pinecone"
+
+require('dotenv').config({path: '.env.local'});
 
 const systemPrompt = 
     `   
-        You are RateMyCity, an AI assistant helping students discover the best cities for their needs. Your recommendations are based on attributes like affordability, education, nightlife, job opportunities, safety, climate, and cultural diversity.
+        You are RateMyCity Employment Advisor, an AI assistant specializing in helping people find the best cities for their career and employment needs based on their life stage. You excel at understanding natural language queries and combining employment factors with lifestyle preferences.
 
-        Instructions for Interaction:
+        ## Life Stages You Support:
+        1. **Recent Graduate** - Just finished college/university, looking for first career opportunities
+        2. **Mid-Career** - 5-15 years experience, looking for advancement and better opportunities  
+        3. **Career Change** - Switching industries or making significant career transitions
+        4. **Family Starting** - Planning to start/grow a family, need stable employment with good benefits
+        5. **Pre-Retirement** - 10-15 years from retirement, focusing on financial security and benefits
 
-        Use a Retrieval-Augmented Generation (RAG) system to identify the top 3 cities that match the user's query.
-        For each city, provide a brief explanation highlighting relevant attributes related to the query.
-        Maintain a polite, concise, and neutral tone. Avoid overloading the user with information—focus on the most critical details.
-        Suggest follow-up questions or refinements if the query is too vague or broad.
+        ## Instructions for Interaction:
+        - Parse natural language queries to extract both life stage and lifestyle preferences
+        - Use RAG system to identify the top 3 cities that match the user's employment AND lifestyle needs
+        - Balance employment opportunities with cultural, recreational, and quality of life factors
+        - Always consider cost of living relative to potential earnings for their life stage
+        - Provide realistic assessments including potential challenges
+
+        ## Your Capabilities:
+        1. Access to comprehensive employment data including unemployment rates, average salaries, job growth, top industries
+        2. Life-stage specific ratings and recommendations for each city
+        3. Cost of living analysis relative to employment opportunities
+        4. Understanding of lifestyle factors like culture, history, recreation, climate
+        5. Industry-specific insights and career progression opportunities
+
+        ## Your Responses Should Include:
+        1. Brief acknowledgment of their life stage and both employment + lifestyle preferences
+        2. Top 3 city recommendations that balance career opportunities with their interests
+        3. For each city: employment metrics, lifestyle match, life-stage appropriateness, pros/cons
+        4. Actionable next steps for both job search and lifestyle exploration
+
+        ## Response Format:
+        **Understanding Your Needs:** [Brief assessment acknowledging their life stage, employment goals, and lifestyle preferences]
+
+        **Top 3 Cities Balancing Career + Lifestyle:**
+
+        **1. [City Name, State] - Overall Score: X/10 for [Life Stage] + [Lifestyle Interest]**
+        - **Employment Highlights:** [Key employment metrics - unemployment rate, avg salary, job growth]
+        - **Lifestyle Match:** [How city matches their cultural/recreational interests]
+        - **Best For:** [Specific advantages for their life stage and interests]
+        - **Industries:** [Top industries and opportunities]
+        - **Pros:** [Employment and lifestyle benefits]
+        - **Cons:** [Potential challenges]
+        - **Cost Factor:** [Housing cost vs salary ratio, cost of living considerations]
+
+        **2. [City Name, State] - Overall Score: X/10 for [Life Stage] + [Lifestyle Interest]**
+        - **Employment Highlights:** [Key employment metrics]
+        - **Lifestyle Match:** [Cultural/recreational match]
+        - **Best For:** [Advantages for user]
+        - **Industries:** [Top industries]
+        - **Pros:** [Benefits]
+        - **Cons:** [Challenges]
+        - **Cost Factor:** [Cost considerations]
+
+        **3. [City Name, State] - Overall Score: X/10 for [Life Stage] + [Lifestyle Interest]**
+        - **Employment Highlights:** [Key employment metrics]
+        - **Lifestyle Match:** [Cultural/recreational match]
+        - **Best For:** [Advantages for user]
+        - **Industries:** [Top industries]
+        - **Pros:** [Benefits]
+        - **Cons:** [Challenges]
+        - **Cost Factor:** [Cost considerations]
+
+        **Next Steps:** [Personalized advice for both job search and exploring their interests in these cities]
+
+        IMPORTANT: Do not use any emojis in your responses. Keep all text clean and professional.
+
+        ## Example Query Handling:
+        Query: "I am a recent grad, I would like to live in a city filled with historical artifacts like museums, where's best to live"
         
-        ##Your Capabilities:
-        1. You have access to a comprehensive database of city reviews, including information such as city name, city state, city stars, and city reviews
-        2. You use RAG to retrieve and rank the most relevant professor information based on the studetn's query.
-        3. For each query, you providwe information on the top 3 most relevant cities
+        Response approach:
+        - Identify: Recent Graduate life stage
+        - Extract lifestyle preference: Historical sites, museums, cultural amenities
+        - Find cities with: Good entry-level job markets + rich cultural/historical offerings
+        - Balance: Career opportunities vs cultural richness vs affordability for new graduates
 
-        ##Your responsies should include
-        1. Be conside yet informative, focusinf on the most relevant details for each cities.
-        2. Include the City name, city state, city star rating, and a brief summary of notable attraction and characteristics
-        3. Highlight any specific aspects of the mentioned in the user's query (e.g city's friendliness, population, and nighlife)
-        4. Provide a balanced view, mentioning both positives and potential drawbacks if relevant.
-
-        ##Rersponse format:
-        For each query, structure your response as follows:
-        
-        1. A brief introduction addressing the student's sprecific request.
-        2. top 3 Cities Recommendation 
-            -Cities Name (State) - Star Rating 
-            - Brief Summary of the cities' review, attractions, and any relevant details from reviews.
-        3. A concide of conclusion with any additional advice or siggestion fro the student. 
-
-        Guidelines for Recommendations:
-        Affordability: Average cost of living, housing, and rent prices.
-        Safety: Crime rates and overall public safety.
-        Education: Quality of schools and universities.
-        Nightlife: Popular venues, activities, and vibrancy.
-        Job Opportunities: Employment rates and industries.
-        Climate: Weather conditions and seasonal variation.
-        Cultural Diversity: Demographic richness and cultural events.
-        Example Interaction:
-
-        User Query: I want a city with great universities and affordable housing.
-        Response:
-        Here are the top 3 cities that match your criteria:
-
-        Boston, MA: Known for prestigious universities like MIT and Harvard, Boston offers world-class education. Housing affordability varies by neighborhood, so research local options.
-        Austin, TX: Affordable housing paired with excellent universities like the University of Texas makes Austin an attractive option.
-        Ann Arbor, MI: Home to the University of Michigan, this city combines affordable living with a vibrant campus atmosphere.
+        ## Focus Areas by Life Stage:
+        - **Recent Graduate:** Entry-level opportunities, starting salaries, career development, networking, affordable culture
+        - **Mid-Career:** Advancement opportunities, salary growth, industry leadership, work-life balance, established amenities
+        - **Career Change:** Industry diversity, retraining opportunities, transferable skills, lower risk markets, supportive communities
+        - **Family Starting:** Job stability, benefits, family-friendly policies, affordable family housing, good schools, family activities
+        - **Pre-Retirement:** High compensation, retirement benefits, healthcare, lower stress environments, retirement-friendly amenities
     `
 
-    export async function POST(req){
-
+export async function POST(req){
+        try {
+       
         //make embedding
         const data = await req.json()
+        
+        //set up connections to pinecone
+        const pc = new Pinecone({
+            apiKey: process.env.PINECONE_API_KEY,
+        })
 
-        const pc = new Pinecone(
-            {
-                apiKey : process.env.PINECONE_API_KEY,
-            })
-
-            // const { GoogleGenerativeAI } = require("@google/generative-ai");
-
-            // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-            // const model = genAI.getGenerativeModel({ model: "text-embedding-004"});
-            
-            // async function run() {
-            //     const result = await model.embedContent("What is the meaning of life?");
-            //     console.log(result.embedding.values);
-            // }
-            
-            // run();
-
-        const index = pc.index('rag').namespace('ns1')
+        const index = pc.index('rag')
         const genai = new GoogleGenerativeAI(process.env.GEMINIAI_API_KEY)
         const model = genai.getGenerativeModel({ model: "text-embedding-004"});
             
@@ -83,170 +107,95 @@ const systemPrompt =
         const text = data[data.length - 1].content
         const embeddingResponse = await model.embedContent(text)
 
-        const embedding = embeddingResponse.embedding.values;
+        const embedding = embeddingResponse.embedding?.values;
+        
+      
+        if (!embedding) {
+            return NextResponse.json({ error: "Embedding failed." }, { status: 500 });
+        }
 
-
-        //query pinecone for similar cities to make embedd
-        const results = await index.query({
+        //query the pinecone embedding, using the embedding 
+        const results = await index.namespace('ns1').query({
             topK: 3,
             includeMetadata: true,
             vector: embedding
         })
 
+        if (!results.matches || results.matches.length === 0) {
+            return NextResponse.json({ message: "No matches found." });
+        }
+
 
         let resultString = 
-        '\n\nReturned results from vector db (done automatically): '
+        '\n\nReturned results from vector database: '
 
         results.matches.forEach((match) => {
             resultString += `\n
-            City: ${match.id}
-            State:  ${match.metadata.state}
-            Review: ${match.metadata.review}
-            Stars:  ${match.metadata.stars}
-            \n\n
+            City: ${match.metadata.city || 'Unknown'}
+            State: ${match.metadata.state || match.id}
+            Review: ${match.metadata.review || 'No review available'}
+            Stars: ${match.metadata.stars || 'N/A'}
             `
+            
+            // Add employment data if available
+            if (match.metadata.unemployment_rate) {
+                resultString += `
+            Unemployment Rate: ${match.metadata.unemployment_rate}%
+            Average Salary: $${match.metadata.average_salary?.toLocaleString() || 'N/A'}
+            Job Growth Rate: ${match.metadata.job_growth_rate}%
+            Top Industries: ${match.metadata.top_industries || 'N/A'}
+            Recent Graduate Score: ${match.metadata.recent_graduate_score || 'N/A'}/10
+            Mid-Career Score: ${match.metadata.mid_career_score || 'N/A'}/10
+            Career Change Score: ${match.metadata.career_change_score || 'N/A'}/10
+            Family Starting Score: ${match.metadata.family_starting_score || 'N/A'}/10
+            Pre-Retirement Score: ${match.metadata.pre_retirement_score || 'N/A'}/10
+                `
+            }
+            
+            resultString += '\n\n'
         })
 
         const lastMessage = data[data.length - 1]
         const lastMessageContent = lastMessage.content + resultString
         const lastDataWithoutLastMessage = data.slice(0, data.length - 1)
 
-       
-        //generate data with embedding
-        const client = new  GoogleGenerativeAI({
-             api_key: process.env.GEMINIAI_API_KEY,
-            base_url: "https://generativelanguage.googleapis.com/v1beta/openai/"
-            }  
-        )
+        // Initialize the Gemini model for chat completion
+        const chatModel = genai.getGenerativeModel({ model: "gemini-1.5-flash" });
+        
+        // Prepare the conversation context
+        const conversationHistory = data.slice(0, -1).map(msg => 
+            `${msg.role}: ${msg.content}`
+        ).join('\n');
+        
+        const prompt = `${systemPrompt}\n\nConversation History:\n${conversationHistory}\n\nUser Query: ${lastMessageContent}\n\nAssistant:`;
+        
+        // Generate streaming response
+        const result = await chatModel.generateContentStream(prompt);
 
-
-        // Initialize the model (Gemini)
-        const model1 = genai.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-        async function generateChatCompletion(systemPrompt, lastDataWithoutLastMessage, lastMessageContent) {
-            try {
-                const chat = model1.startChat({
-                    history: [
-                        { role: "user", parts: [{ text: lastMessageContent }] },
-                        ...lastDataWithoutLastMessage,
-                        { role: "system", parts: [{ text: systemPrompt }] },
-                    ],
-                });
-    
-                const result = await chat.sendMessage(lastMessageContent, { stream: true });
-    
-                console.log(result.response.text());
-    
-                const stream = new ReadableStream({
-                    async start(controller) {
-                        const encoder = new TextEncoder();
-                        try {
-                            for await (const chunk of result) {
-                                const content = chunk.choices[0]?.delta?.content;
-                                if (content) {
-                                    const text = encoder.encode(content);
-                                    controller.enqueue(text);
-                                }
-                            }
-                        } catch (err) {
-                            controller.error(err);
-                        } finally {
-                            controller.close();
+        // Create readable stream for the response
+        const readableStream = new ReadableStream({
+            async start(controller) {
+                const encoder = new TextEncoder();
+                try {
+                    for await (const chunk of result.stream) {
+                        const chunkText = chunk.text();
+                        if (chunkText) {
+                            const encodedText = encoder.encode(chunkText);
+                            controller.enqueue(encodedText);
                         }
-                    },
-                });
-    
-                return new NextResponse(stream);
-            } catch (error) {
-                console.error("Error generating chat completion:", error);
-                return new NextResponse("An error occurred while generating chat completion.", { status: 500 });
+                    }
+                } catch (err) {
+                    console.error('Streaming error:', err);
+                    controller.error(err);
+                } finally {
+                    controller.close();
+                }
+            },
+        });
 
-            }
-        }
-    
-        await generateChatCompletion(systemPrompt, lastDataWithoutLastMessage, lastMessageContent);
+        return new NextResponse(readableStream);
+    } catch (error) {
+        console.error("Error in POST handler:", error);
+        return NextResponse.json({ error: "An internal server error occurred." }, { status: 500 });
     }
-       
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // console.log(client)
-        // response = client.chat.completions.create(
-        //     model="gemini-1.5-flash",
-        //     messages=[
-        //         {role: 'system', content:systemPrompt},
-        //         ...lastDataWithoutLastMessage,
-        //         {role: 'user', content: lastMessageContent}
-        //     ],
-        //     stream=True
-        // )
-
-    //create a chat based completion 
-        // const completion = await genai.createChatCompletion({
-        //     messages:[
-        //         {role: 'system', content:systemPrompt},
-        //         ...lastDataWithoutLastMessage,
-        //         {role: 'user', content: lastMessageContent}
-        //     ],
-        //     stream: true,
-        // })
-
-        // const stream = new ReadableStream({
-        //     async start(controller){
-        //         const encoder = new TextDecoder()
-        //         try{
-        //             for await (const chunk of completion){
-        //                 const content = chunk.choices[0]?.delta?.content
-        //                 if(content){
-        //                     const text = ecndoer.encode(content)
-        //                     controller.enqueue(text)
-        //                 }
-        //             }
-        //         }catch(err){
-        //             controller.error(err)
-        //         }finally{
-        //             controller.close()
-        //         }
-        //     },
-        // })
-
-        // return new NextResponse(stream)
-
-
-        // const completion = await GoogleGenerativeAI.chat.completions.create({
-        //     messages:[
-        //         {role: 'system', content:systemPrompt},
-        //         ...lastDataWithoutLastMessage,
-        //         {role: 'user', content: lastMessageContent}
-        //     ],
-        //     stream: true,
-        // })
-    // }
-
-    // 'id': 'Los Angeles',
-    // 'metadata': {'review': 'A vibrant city with endless entertainment and fantastic weather!',
-    //  'state': 'California',
-    //  'stars': 5}}
+}

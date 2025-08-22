@@ -1,0 +1,156 @@
+{
+  "reviews": [
+    {
+      "state": "California",
+      "city": "San Francisco",
+      "stars": 4,
+      "review": "Premium tech hub with highest salaries in the country. Unemployment rate of 2.8% and average salary of $112,000. Strong in Technology, Finance, Healthcare, and Tourism industries. Excellent for recent graduates and mid-career professionals with very high entry-level to senior opportunities. Outstanding startup ecosystem and corporate presence. Very high remote work friendliness but cost of living index of 164 with housing costs taking 45% of salary. Great for career growth but challenging for families due to housing costs.",
+      "employment_metrics": {
+        "unemployment_rate": 2.8,
+        "average_salary": 112000,
+        "job_growth_rate": 8.5,
+        "top_industries": ["Technology", "Finance", "Healthcare", "Tourism"],
+        "life_stage_scores": {
+          "recent_graduate": 8.5,
+          "mid_career": 9.2,
+          "career_change": 7.8,
+          "family_starting": 6.5,
+          "pre_retirement": 7.0
+        }
+      }
+    },
+    {
+      "state": "Texas", 
+      "city": "Austin",
+      "stars": 5,
+      "review": "Rapidly growing tech scene with excellent work-life balance. Unemployment rate of 3.1% and average salary of $75,000. Strong in Technology, Music & Entertainment, Government, and Healthcare. No state income tax with cost of living index of 103 and housing costs only 28% of salary. Outstanding for recent graduates and families with scores of 9.0 and 9.2 respectively. High job growth rate of 12.3% with very good startup ecosystem. Great for career changers and affordable for families starting out.",
+      "employment_metrics": {
+        "unemployment_rate": 3.1,
+        "average_salary": 75000,
+        "job_growth_rate": 12.3,
+        "top_industries": ["Technology", "Music & Entertainment", "Government", "Healthcare"],
+        "life_stage_scores": {
+          "recent_graduate": 9.0,
+          "mid_career": 8.8,
+          "career_change": 8.5,
+          "family_starting": 9.2,
+          "pre_retirement": 8.0
+        }
+      }
+    },
+    {
+      "state": "New York",
+      "city": "New York City", 
+      "stars": 4,
+      "review": "Unmatched career opportunities across all industries. Unemployment rate of 4.2% with average salary of $85,000. Dominant in Finance, Media, Technology, Fashion, and Real Estate. Very high opportunities at all career levels with excellent startup ecosystem and corporate presence. Cost of living index of 148 with housing taking 42% of salary. Best for recent graduates and mid-career professionals seeking maximum advancement opportunities despite high living costs and competitive environment.",
+      "employment_metrics": {
+        "unemployment_rate": 4.2,
+        "average_salary": 85000,
+        "job_growth_rate": 4.8,
+        "top_industries": ["Finance", "Media", "Technology", "Fashion", "Real Estate"],
+        "life_stage_scores": {
+          "recent_graduate": 8.8,
+          "mid_career": 9.0,
+          "career_change": 8.2,
+          "family_starting": 6.8,
+          "pre_retirement": 7.5
+        }
+      }
+    },
+    {
+      "state": "Colorado",
+      "city": "Denver",
+      "stars": 5,
+      "review": "Perfect work-life balance destination with growing opportunities. Unemployment rate of 3.5% and average salary of $68,000. Strong in Aerospace, Technology, Energy, Healthcare, and Cannabis industries. Job growth rate of 9.2% with good to high opportunities across career levels. Cost of living index of 110 with housing costs at 32% of salary. Exceptional for families starting and pre-retirement with scores of 9.5 and 9.2. Very high remote work friendliness and supportive community for career changes.",
+      "employment_metrics": {
+        "unemployment_rate": 3.5,
+        "average_salary": 68000,
+        "job_growth_rate": 9.2,
+        "top_industries": ["Aerospace", "Technology", "Energy", "Healthcare", "Cannabis"],
+        "life_stage_scores": {
+          "recent_graduate": 8.2,
+          "mid_career": 9.0,
+          "career_change": 8.8,
+          "family_starting": 9.5,
+          "pre_retirement": 9.2
+        }
+      }
+    },
+    {
+      "state": "Washington",
+      "city": "Seattle",
+      "stars": 4,
+      "review": "Major tech hub with strong aerospace industry presence. Unemployment rate of 3.8% and average salary of $95,000. Leading in Technology, Aerospace, Maritime, Healthcare, and Coffee industries. Job growth rate of 7.1% with very high mid-career opportunities. No state income tax with cost of living index of 125 and housing costs at 35% of salary. Strong for mid-career professionals and families with good work-life balance. Very high remote work friendliness but weather can be challenging for some.",
+      "employment_metrics": {
+        "unemployment_rate": 3.8,
+        "average_salary": 95000,
+        "job_growth_rate": 7.1,
+        "top_industries": ["Technology", "Aerospace", "Maritime", "Healthcare", "Coffee"],
+        "life_stage_scores": {
+          "recent_graduate": 8.0,
+          "mid_career": 8.8,
+          "career_change": 7.5,
+          "family_starting": 8.5,
+          "pre_retirement": 8.2
+        }
+      }
+    },
+    {
+      "state": "Massachusetts",
+      "city": "Boston",
+      "stars": 5,
+      "review": "Education and healthcare powerhouse with strong financial sector. Unemployment rate of 3.2% and average salary of $78,000. Dominant in Education, Healthcare, Biotechnology, and Finance. High concentration of universities creating excellent networking for recent graduates and career changers. Strong job growth in biotech and healthcare sectors. Cost of living index of 132 but excellent public transportation. Great for recent graduates in tech and healthcare fields with strong alumni networks.",
+      "employment_metrics": {
+        "unemployment_rate": 3.2,
+        "average_salary": 78000,
+        "job_growth_rate": 6.8,
+        "top_industries": ["Education", "Healthcare", "Biotechnology", "Finance"],
+        "life_stage_scores": {
+          "recent_graduate": 9.0,
+          "mid_career": 8.5,
+          "career_change": 8.8,
+          "family_starting": 7.8,
+          "pre_retirement": 8.0
+        }
+      }
+    },
+    {
+      "state": "North Carolina",
+      "city": "Raleigh",
+      "stars": 5,
+      "review": "Research Triangle offers excellent tech and research opportunities. Unemployment rate of 2.9% with average salary of $65,000. Strong in Technology, Research, Pharmaceuticals, and Education. Job growth rate of 11.2% with growing startup ecosystem. Cost of living index of 98 with housing costs only 25% of salary. Excellent for families and recent graduates with strong university partnerships. Growing reputation as 'Silicon Valley of the East' with more affordable living costs.",
+      "employment_metrics": {
+        "unemployment_rate": 2.9,
+        "average_salary": 65000,
+        "job_growth_rate": 11.2,
+        "top_industries": ["Technology", "Research", "Pharmaceuticals", "Education"],
+        "life_stage_scores": {
+          "recent_graduate": 8.8,
+          "mid_career": 8.5,
+          "career_change": 8.0,
+          "family_starting": 9.0,
+          "pre_retirement": 8.5
+        }
+      }
+    },
+    {
+      "state": "Illinois",
+      "city": "Chicago",
+      "stars": 4,
+      "review": "Major financial and trading hub with diverse industry presence. Unemployment rate of 4.1% and average salary of $72,000. Strong in Finance, Manufacturing, Transportation, and Healthcare. Excellent corporate presence with opportunities across all career levels. Cost of living index of 108 with housing costs at 30% of salary. Good for mid-career professionals and those in traditional industries. Strong public transportation and cultural amenities but harsh winters affect quality of life.",
+      "employment_metrics": {
+        "unemployment_rate": 4.1,
+        "average_salary": 72000,
+        "job_growth_rate": 5.5,
+        "top_industries": ["Finance", "Manufacturing", "Transportation", "Healthcare"],
+        "life_stage_scores": {
+          "recent_graduate": 7.8,
+          "mid_career": 8.5,
+          "career_change": 7.5,
+          "family_starting": 8.2,
+          "pre_retirement": 8.0
+        }
+      }
+    }
+  ]
+}
