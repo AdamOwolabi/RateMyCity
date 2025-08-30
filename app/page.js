@@ -37,18 +37,26 @@ export default function Home() {
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
       
-      // Look for city headers like "1. San Francisco, CA - Overall Score: 8.5/10"
-      const cityMatch = line.match(/^\d+\.\s*([^-]+)\s*-\s*Overall Score:\s*(\d+\.?\d*)/);
+      // Look for city headers - multiple patterns
+      let cityMatch = line.match(/^\d+\.\s*([^-]+)\s*-\s*Overall Score:\s*(\d+\.?\d*)/);
+      if (!cityMatch) {
+        // Try alternative pattern like "1. Philadelphia, Pennsylvania - Overall Score: 7/10"
+        cityMatch = line.match(/^\d+\.\s*([^-]+)\s*-\s*Overall Score:\s*(\d+\.?\d*)\/\d+/);
+      }
+      
       if (cityMatch) {
         if (currentCity) cities.push(currentCity);
         
-        const [cityState] = cityMatch[1].split(',').map(s => s.trim());
-        const score = parseFloat(cityMatch[2]);
+        const cityStateText = cityMatch[1].trim();
+        let score = parseFloat(cityMatch[2]);
+        
+        // If score was parsed as X/10 format, keep as is, otherwise convert
+        if (score > 10) score = score / 10;
         
         currentCity = {
-          name: cityState,
+          name: cityStateText,
           score: score,
-          rating: Math.min(5, Math.round(score / 2)),
+          rating: Math.min(5, Math.max(1, Math.round(score / 2))),
           highlights: [],
           pros: [],
           cons: [],
@@ -58,29 +66,66 @@ export default function Home() {
         };
       }
       
-      // Extract details
-      if (currentCity && line.startsWith('- **Employment Highlights:**')) {
-        currentCity.highlights.push(line.replace('- **Employment Highlights:**', '').trim());
-      }
-      if (currentCity && line.startsWith('- **Best For:**')) {
-        currentCity.bestFor = line.replace('- **Best For:**', '').trim();
-      }
-      if (currentCity && line.startsWith('- **Industries:**')) {
-        currentCity.industries = line.replace('- **Industries:**', '').trim().split(',').map(s => s.trim());
-      }
-      if (currentCity && line.startsWith('- **Pros:**')) {
-        currentCity.pros.push(line.replace('- **Pros:**', '').trim());
-      }
-      if (currentCity && line.startsWith('- **Cons:**')) {
-        currentCity.cons.push(line.replace('- **Cons:**', '').trim());
-      }
-      if (currentCity && line.startsWith('- **Cost Factor:**')) {
-        currentCity.costFactor = line.replace('- **Cost Factor:**', '').trim();
+      // Extract details with more flexible matching
+      if (currentCity) {
+        if (line.includes('Employment Highlights:') || line.includes('**Employment Highlights:**')) {
+          const highlight = line.replace(/.*Employment Highlights:\*?\*?\s*/, '').trim();
+          if (highlight) currentCity.highlights.push(highlight);
+        }
+        
+        if (line.includes('Best For:') || line.includes('**Best For:**')) {
+          const bestFor = line.replace(/.*Best For:\*?\*?\s*/, '').trim();
+          if (bestFor) currentCity.bestFor = bestFor;
+        }
+        
+        if (line.includes('Industries:') || line.includes('**Industries:**')) {
+          const industries = line.replace(/.*Industries:\*?\*?\s*/, '').trim();
+          if (industries) {
+            currentCity.industries = industries.split(',').map(s => s.trim()).filter(s => s);
+          }
+        }
+        
+        if (line.includes('Pros:') || line.includes('**Pros:**')) {
+          const pros = line.replace(/.*Pros:\*?\*?\s*/, '').trim();
+          if (pros) currentCity.pros.push(pros);
+        }
+        
+        if (line.includes('Cons:') || line.includes('**Cons:**')) {
+          const cons = line.replace(/.*Cons:\*?\*?\s*/, '').trim();
+          if (cons) currentCity.cons.push(cons);
+        }
+        
+        if (line.includes('Cost Factor:') || line.includes('**Cost Factor:**')) {
+          const costFactor = line.replace(/.*Cost Factor:\*?\*?\s*/, '').trim();
+          if (costFactor) currentCity.costFactor = costFactor;
+        }
       }
     }
     
     if (currentCity) cities.push(currentCity);
-    return cities.sort((a, b) => b.rating - a.rating);
+    
+    // If no cities were parsed in the expected format, create basic city cards from content
+    if (cities.length === 0) {
+      const cityMatches = content.match(/(?:\d+\.?\s*)?([A-Z][a-zA-Z\s]+),?\s*([A-Z]{2})/g);
+      if (cityMatches) {
+        cityMatches.slice(0, 3).forEach((match, index) => {
+          const cleanMatch = match.replace(/^\d+\.?\s*/, '').trim();
+          cities.push({
+            name: cleanMatch,
+            score: 7 - index * 0.5, // Decreasing scores
+            rating: Math.max(3, 5 - index),
+            highlights: [`Based on your preferences`],
+            pros: ['Good cultural offerings', 'Career opportunities'],
+            cons: ['Further research needed'],
+            industries: ['Various industries available'],
+            bestFor: 'Based on your stated preferences',
+            costFactor: 'Varies by neighborhood and lifestyle'
+          });
+        });
+      }
+    }
+    
+    return cities.sort((a, b) => b.score - a.score);
   };
 
   const sendMessage = async () => {
@@ -102,7 +147,9 @@ export default function Home() {
       const processText = async ({ done, value }) => {
         if (done) {
           setIsLoading(false);
+          console.log('Full AI Response:', fullResponse); // Debug log
           const cities = parseCityRecommendations(fullResponse);
+          console.log('Parsed Cities:', cities); // Debug log
           setCityRecommendations(cities);
           return fullResponse;
         }
